@@ -1,0 +1,21 @@
+{
+  "name": "fw",
+  "version": "1.0.0",
+  "description": "simple rule validation api",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon -L index.js ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^17.3.0",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.13",
+    "nodemon": "^2.0.7",
+    "validatorjs": "^3.22.1"
+  }
+}
