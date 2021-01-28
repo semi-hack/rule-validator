@@ -13,6 +13,6 @@ app.use(bodyParser.json());
 app.use(router)
 
 
-app.listen(PORT, () => {
+app.listen(port, () => {
     console.log(`server started on port ${port} `)
 })
