@@ -1,5 +1,19 @@
 const { validationResponseSuccess, validationResponseFailure} = require('./response')
 
+// get value of nested json object
+function getNestedData(data, path) {
+    const keys = path.split("."); 
+    if (keys.length > 2 || !keys[0]) {
+        return { Success: false };
+    }
+    else if (keys.length === 2) {
+        return { value: data[keys[0]][keys[1]], Success: true };
+    }
+    return { value: data[keys[0]], Success: true }; // data["3"]
+}
+
+
+
 /** 
  * This function validates the fields that are sent in the request
  * 
@@ -82,6 +96,8 @@ const validateType = (req, res, next) => {
     next()
 }
 
+
+
 /**
  * This function does the rule validation and returns a boolean true or false
  * @param {Object} rule
@@ -90,11 +106,11 @@ const validateType = (req, res, next) => {
  * @returns {Object}
  */
 const conditionValidator = ( rule, data ) => {
-    let fieldValue = data[rule.field]
-    let condition = rule.condition
-    let condition_value = rule.condition_value
 
-    console.log(fieldValue, condition, condition_value)
+    const { value: fieldValue } = getNestedData(data, rule.field) 
+
+    const condition = rule.condition
+    const condition_value = rule.condition_value
 
     switch(condition) {
         case "eq":

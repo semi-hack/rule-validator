@@ -19,21 +19,40 @@ const getData = async (req, res) => {
     })
 };
 
+function getNestedData(data, path) {
+  const keys = path.split("."); 
+  if (keys.length > 2 || !keys[0]) {
+      return { Success: false };
+  }
+  else if (keys.length === 2) {
+      return { value: data[keys[0]][keys[1]], Success: true };
+  }
+  return { value: data[keys[0]], Success: true }; // data["3"]
+}
+
 
 
 const ruleValidation = (req, res) => {
 
   const {rule, data } = req.body
   const dataValues = Object.keys(data)
+  const { value: fieldValue } = getNestedData(data, rule.field)
 
   try {
-    if (!dataValues.includes(rule.field)) {
-        return res.status(400).send({
-          message: `field ${rule.field} is missing from data.`,
-          status: 'error',
-          data: null,
-        });
+    if (!fieldValue) {
+      return res.status(400).send({
+        message: `field ${rule.field} is missing from data.`,
+        status: 'error',
+        data: null,
+      });
     }
+    // if (!dataValues.includes(rule.field)) {
+    //     return res.status(400).send({
+    //       message: `field ${rule.field} is missing from data.`,
+    //       status: 'error',
+    //       data: null,
+    //     });
+    // }
 
     const result = conditionValidator( rule, data) 
     if (result) {
