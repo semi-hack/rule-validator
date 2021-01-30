@@ -1,6 +1,5 @@
 const { validationResponseSuccess, validationResponseFailure} = require('./response')
 
-// get value of nested json object
 function getNestedData(data, path) {
     const keys = path.split("."); 
     if (keys.length > 2 || !keys[0]) {

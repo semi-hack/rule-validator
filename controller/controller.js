@@ -27,7 +27,7 @@ function getNestedData(data, path) {
   else if (keys.length === 2) {
       return { value: data[keys[0]][keys[1]], Success: true };
   }
-  return { value: data[keys[0]], Success: true }; // data["3"]
+  return { value: data[keys[0]], Success: true };
 }
 
 
@@ -46,13 +46,6 @@ const ruleValidation = (req, res) => {
         data: null,
       });
     }
-    // if (!dataValues.includes(rule.field)) {
-    //     return res.status(400).send({
-    //       message: `field ${rule.field} is missing from data.`,
-    //       status: 'error',
-    //       data: null,
-    //     });
-    // }
 
     const result = conditionValidator( rule, data) 
     if (result) {
